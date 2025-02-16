@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Rental Properties</title>
+   </head>
+   <body>
+      <h1>Rental Property Listings</h1>
+
+      <ul>
+         {% for property in properties %}
+         <li><strong>{{ property.street_address }}</strong>, {{ property.city }}, {{ property.state }}</li>
+         {% empty %}
+         <p>No properties available.</p>
+         {% endfor %}
+      </ul>
+   </body>
+</html>

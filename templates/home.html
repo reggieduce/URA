@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+   <!-- templates/home.html -->
+   {% extends "base.html" %} {% block title %}Home{% endblock title %} {% block content %} {% if user.is_authenticated %}
+   <!-- new code here! -->
+   Hi {{ user.username }}!
+   <!-- end of new code -->
+   <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Log Out</button>
+   </form>
+
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Blue Earth-Tone Design</title>
+      <style>
+         body {
+            font-family: "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e8f1f2; /* Light blue-gray */
+            color: #2b3a42; /* Dark slate blue-gray */
+         }
+
+         header {
+            background-color: #3a6073; /* Deep blue-gray */
+            color: #f7fff7; /* Light cream */
+            padding: 20px 0;
+            text-align: center;
+         }
+
+         header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+         }
+
+         .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+         }
+         .right-container {
+            display: flex;
+            flex-direction: column; /* Stack small cards vertically */
+            gap: 5px; /* Same spacing as the left container */
+            align-items: center; /* Keep alignment consistent */
+         }
+
+         /* Left container stacks items */
+         .left-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+         }
+
+         /* General card styles */
+         .card {
+            background-color: #f4f9f9;
+            border: 1px solid #a3c4bc;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;  /* Centers text vertically */
+            justify-content: center;
+         }
+
+         /* Larger cards on the left */
+         .large-card {
+            width: 375px;
+            height: 25px;
+         }
+
+         /* Smaller card on the right */
+         .small-card {
+            width: 140px;
+            height: 25px;
+            align-self: flex-start; /* Keeps it aligned to the top */
+         }
+
+         /* Clickable link behavior */
+         .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+         }
+
+         /* Hover effect */
+         .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+         }
+
+         /* Responsive design for smaller screens */
+         @media (max-width: 768px) {
+            .container {
+               flex-direction: column;
+               align-items: center;
+            }
+
+            .small-card {
+               align-self: center;
+            }
+         }
+      </style>
+   </head>
+
+   <body>
+      <header>
+         <h1>Urban Renewal Associates</h1>
+      </header>
+      <div class="container">
+         <!-- Left side: Two stacked cards -->
+         <div class="left-container">
+            <a href="{% url 'penwell_list' %}" class="card-link">
+               <div class="card large-card">
+                  <h3 class="card-title">Penwell Building</h3>
+               </div>
+            </a>
+            <a href="{% url 'residential_list' %}" class="card-link">
+               <div class="card large-card">
+                  <h3 class="card-title">Residential Properties</h3>
+               </div>
+            </a>
+         </div>
+         <div class="right-container">
+         <!-- Right side: Smaller Bills card -->
+         <a href="{% url 'bill_list' %}" class="card-link">
+            <div class="card small-card">
+               <h3 class="card-title">Bills</h3>
+              
+            </div>
+            <a href="{% url 'contact_list' %}" class="card-link">
+               <div class="card small-card">
+                  <h3 class="card-title">Contacts</h3>
+         </a>
+      </div>
+      </div>
+   </body>
+   <head>
+      <title>Submit Maintenance Request</title>
+  </head>
+  <body>
+      <h1>Submit a Maintenance Request</h1>
+      <form method="post">
+          {% csrf_token %}  <!-- Security token required by Django -->
+          <label for="title">Title:</label>
+          <input type="text" name="title" required><br><br>
+  
+          <label for="description">Description:</label>
+          <textarea name="description" required></textarea><br><br>
+  
+          <button type="submit">Submit</button>
+      </form>
+  </body>
+</html>
+{% else %}
+<p>You are not logged in</p>
+<a href="{% url 'login' %}">Log In</a>
+|
+<a href="{% url 'signup' %}">Sign Up</a>
+{% endif %} {% endblock content %}

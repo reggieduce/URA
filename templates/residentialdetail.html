@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Apartment Details</title>
+      <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+         }
+         .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+         }
+         h1 {
+            color: #3a6073;
+         }
+         p {
+            font-size: 18px;
+            margin: 10px 0;
+         }
+         .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #3a6073;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+         }
+         .back-btn:hover {
+            background-color: #3a6073;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <h1>Apartment {{ residentialdetail.apt_number }}</h1>
+         <p><strong>Tenant Name:</strong> {{ residentialdetail.tenant_name }}</p>
+         <p><strong>City:</strong> {{ residentialdetail.city }}</p>
+         <p><strong>State:</strong> {{ residentialdetail.state }}</p>
+         <a href="{% url 'residential_list' %}" class="back-btn">Back to List</a>
+      </div>
+   </body>
+</html>

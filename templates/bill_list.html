@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Bill List</title>
+      <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+         }
+         .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+         }
+         table {
+            width: 100%;
+            border-collapse: collapse;
+         }
+         th,
+         td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+         }
+         th {
+            background-color: #3a6073;
+            color: white;
+         }
+         tr:hover {
+            background-color: #f1f1f1;
+         }
+         a {
+            text-decoration: none;
+            color: inherit;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <table>
+            <thead>
+               <tr>
+                  <th>Bill List</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for bill in bills %}
+               <tr>
+                  <td><a href="{% url 'bill_detail' bill.pk %}" style="display: block; width: 100%; height: 100%; text-decoration: none; color: inherit">{{ bill.name }}</a></td>
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   </body>
+</html>
