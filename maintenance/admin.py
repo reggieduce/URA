@@ -5,7 +5,7 @@ from .models import Maintenance
 
 @admin.register(Maintenance)
 class MaintenanceAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'date_reported')
+    list_display = ('urgency', 'street_address', 'description', 'date_reported', 'pending')
 
 
 

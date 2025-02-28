@@ -1,6 +1,10 @@
 from django.urls import path
-from .views import maintenance_create
+from . import views
 
+# Create your views here.
 urlpatterns = [
-    path("maintenance/new/", maintenance_create, name="maintenance_create"),
+    path('', views.home_view, name='home'),
+    path('maintenance/', views.maintenance_list, name='maintenance_list'),
+    path('<int:pk>/', views.maintenance_detail, name='maintenance_detail'),
+    path('maintenance/<int:pk>/edit/', views.maintenance_edit, name='maintenance_edit'),
 ]

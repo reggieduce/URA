@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Edit Maintenance Request</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label for="urgency">Urgency:</label>
+        <select name="urgency" id="urgency">
+            <option value="Low" {% if maintenance.urgency == "Low" %}selected{% endif %}>Low</option>
+            <option value="Medium" {% if maintenance.urgency == "Medium" %}selected{% endif %}>Medium</option>
+            <option value="High" {% if maintenance.urgency == "High" %}selected{% endif %}>High</option>
+        </select>
+    </div>
+    <div>
+        <label for="street_address">Street Address:</label>
+        <input type="text" name="street_address" id="street_address" value="{{ maintenance.street_address }}">
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <textarea name="description" id="description">{{ maintenance.description }}</textarea>
+    </div>
+    <button type="submit">Update Maintenance</button>
+</form>
+
+<a href="{% url 'maintenance_detail' maintenance.pk %}">Back to Detail</a>
+{% endblock %}

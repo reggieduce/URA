@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-   <!-- templates/home.html -->
    {% extends "base.html" %} {% block title %}Home{% endblock title %} {% block content %} {% if user.is_authenticated %}
-   <!-- new code here! -->
-   Hi {{ user.username }}!
-   <!-- end of new code -->
+   <h2>Welcome, {{ user.username }}!</h2>
+
    <form action="{% url 'logout' %}" method="post">
       {% csrf_token %}
       <button type="submit">Log Out</button>
@@ -42,24 +40,11 @@
             align-items: flex-start;
             gap: 10px;
             padding: 40px;
-            max-width: 900px;
+            max-width: 1000px;
             margin: auto;
-         }
-         .right-container {
-            display: flex;
-            flex-direction: column; /* Stack small cards vertically */
-            gap: 5px; /* Same spacing as the left container */
-            align-items: center; /* Keep alignment consistent */
-         }
-
-         /* Left container stacks items */
-         .left-container {
-            display: flex;
             flex-direction: column;
-            gap: 10px;
          }
 
-         /* General card styles */
          .card {
             background-color: #f4f9f9;
             border: 1px solid #a3c4bc;
@@ -69,48 +54,166 @@
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
-
             display: flex;
-            align-items: center;  /* Centers text vertically */
+            align-items: center;
             justify-content: center;
          }
+         .card-wrapper {
+            display: flex;
+            justify-content: space-between; /* Ensures left and right containers are side by side */
+            align-items: flex-start; /* Aligns them at the top */
+            width: 100%;
+            gap: 10px; /* Adds spacing between left and right sections */
+         }
 
-         /* Larger cards on the left */
+         .left-container {
+            display: flex;
+            flex-direction: column; /* Stack the large cards vertically */
+            gap: 10px;
+            width: 65%;
+            margin: 0; /* Adjust width to ensure a balanced layout */
+         }
+
+         .right-container {
+            display: flex;
+            flex-direction: column; /* Stack small cards vertically */
+            gap: 10px;
+            width: 30%; /* Makes the right container smaller than the left */
+            align-items: flex-start;
+            margin: 0; /* Aligns small cards to the left inside the right container */
+         }
+
+         .left-container,
+         .right-container {
+            width: 100%; /* Make both containers full width on smaller screens */
+         }
+
          .large-card {
-            width: 375px;
-            height: 25px;
+            width: 450px;
+            height: 42px;
          }
-
-         /* Smaller card on the right */
          .small-card {
-            width: 140px;
-            height: 25px;
-            align-self: flex-start; /* Keeps it aligned to the top */
+            width: 450px;
+            height: 10px;
+            align-self: flex-start;
          }
-
-         /* Clickable link behavior */
          .card-link {
             text-decoration: none;
             color: inherit;
             display: block;
          }
 
-         /* Hover effect */
          .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
          }
 
-         /* Responsive design for smaller screens */
+         /* Color-coded maintenance levels */
+         .high {
+            background-color: #ffcccc;
+         } /* Light red */
+         .medium {
+            background-color: #fff3cd;
+         } /* Light yellow */
+         .low {
+            background-color: #d4edda;
+         } /* Light green */
+
+         /* Responsive design */
          @media (max-width: 768px) {
             .container {
                flex-direction: column;
                align-items: center;
             }
-
             .small-card {
                align-self: center;
             }
+            .card-wrapper {
+               flex-wrap: wrap;
+            }
+            .left-container,
+            .right-container {
+               width: 100%;
+            }
+         }
+
+         .table-header {
+            background-color: #3a6073; /* Deep blue background */
+            color: white; /* White text */
+            text-align: center; /* Center the text */
+            border-radius: 8px 8px 0 0; /* Rounded top corners */
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px; /* Padding inside the box */
+            margin: 0; /* Remove extra margin */
+         }
+
+         .table-header h1 {
+            margin: 0; /* Removes unwanted spacing */
+            font-size: 20px;
+            text-align: center; /* Adjust font size */
+         }
+
+         th {
+            background-color: #3a6073;
+            color: white;
+            padding: 10px;
+         }
+
+         table {
+            width: 100%;
+            border-collapse: collapse; /* Ensures table borders are connected */
+            margin-top: 0; /* Removes extra spacing above the table */
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+         }
+
+         th,
+         td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+            word-wrap: break-word; /* Allows text to wrap within the cell */
+            overflow-wrap: break-word;
+         }
+
+         th:nth-child(1) {
+            width: 12%;
+         } /* Urgency */
+         th:nth-child(2) {
+            width: 18%;
+         } /* Street Address */
+         th:nth-child(3) {
+            width: 55%;
+         } /* Description (More space) */
+         th:nth-child(4) {
+            width: 20%;
+         } /* Date Reported */
+
+         td:nth-child(3) {
+            /* Description Column */
+            white-space: pre-wrap; /* Ensures line breaks and wrapping */
+            word-break: break-word; /* Breaks long words */
+            max-width: 55%; /* Ensures description does not overflow */
+            overflow: hidden; /* Prevents horizontal scrolling */
+            text-align: left; /* Aligns text properly */
+            line-height: 1.5;
+         }
+         .edit-maintenance-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3a6073; /* Match header color */
+            color: #f7fff7; /* Light cream for contrast */
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+         }
+
+         .edit-maintenance-button:hover {
+            background-color: #284858; /* Darker shade on hover for interactivity */
          }
       </style>
    </head>
@@ -120,50 +223,77 @@
          <h1>Urban Renewal Associates</h1>
       </header>
       <div class="container">
-         <!-- Left side: Two stacked cards -->
-         <div class="left-container">
-            <a href="{% url 'penwell_list' %}" class="card-link">
-               <div class="card large-card">
-                  <h3 class="card-title">Penwell Building</h3>
-               </div>
-            </a>
-            <a href="{% url 'residential_list' %}" class="card-link">
-               <div class="card large-card">
-                  <h3 class="card-title">Residential Properties</h3>
-               </div>
-            </a>
-         </div>
-         <div class="right-container">
-         <!-- Right side: Smaller Bills card -->
-         <a href="{% url 'bill_list' %}" class="card-link">
-            <div class="card small-card">
-               <h3 class="card-title">Bills</h3>
-              
+         <div class="card-wrapper">
+            <!-- Left side: Two stacked large cards -->
+            <div class="left-container">
+               <a href="{% url 'penwell_list' %}" class="card-link">
+                  <div class="card large-card">
+                     <h3 class="card-title">Penwell Building</h3>
+                  </div>
+               </a>
+               <a href="{% url 'residential_list' %}" class="card-link">
+                  <div class="card large-card">
+                     <h3 class="card-title">Residential Properties</h3>
+                  </div>
+               </a>
             </div>
-            <a href="{% url 'contact_list' %}" class="card-link">
-               <div class="card small-card">
-                  <h3 class="card-title">Contacts</h3>
-         </a>
+
+            <!-- Right side: Three smaller cards -->
+            <div class="right-container">
+               <a href="{% url 'bill_list' %}" class="card-link">
+                  <div class="card small-card">
+                     <h3 class="card-title">Bills</h3>
+                  </div>
+               </a>
+               <a href="{% url 'contact_list' %}" class="card-link">
+                  <div class="card small-card">
+                     <h3 class="card-title">Contacts</h3>
+                  </div>
+               </a>
+               <a href="{% url 'maintenance_list' %}" class="card-link">
+                  <div class="card small-card">
+                     <h3 class="card-title">Maintenance</h3>
+                  </div>
+               </a>
+            </div>
+         </div>
       </div>
+
+      <!-- Maintenance Requests Table -->
+      <div class="container">
+         <table>
+            <thead>
+               <tr class="table-header">
+                  <th colspan="4"><h1>Pending Maintenance Requests</h1></th>
+               </tr>
+               <tr>
+                  <th>Urgency</th>
+                  <th>Street Address</th>
+                  <th>Description</th>
+                  <!-- Now has more space -->
+                  <th>Date Reported</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for maintenance in maintenancehome %}
+               <tr class="{% if maintenance.urgency == 'High' %}high {% elif maintenance.urgency == 'Medium' %}medium {% else %}low{% endif %}" onclick="window.location.href='{% url 'maintenance_detail' maintenance.pk %}';" style="cursor: pointer">
+                  <td>{{ maintenance.urgency }}</td>
+                  <td>{{ maintenance.street_address }}</td>
+                  <td>{{ maintenance.description }}</td>
+                  <!-- Wider column -->
+                  <td>{{ maintenance.date_reported|date:"Y-m-d" }}</td>
+               </tr>
+               {% empty %}
+               <tr>
+                  <td colspan="4">No pending maintenance requests.</td>
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
       </div>
    </body>
-   <head>
-      <title>Submit Maintenance Request</title>
-  </head>
-  <body>
-      <h1>Submit a Maintenance Request</h1>
-      <form method="post">
-          {% csrf_token %}  <!-- Security token required by Django -->
-          <label for="title">Title:</label>
-          <input type="text" name="title" required><br><br>
-  
-          <label for="description">Description:</label>
-          <textarea name="description" required></textarea><br><br>
-  
-          <button type="submit">Submit</button>
-      </form>
-  </body>
 </html>
+
 {% else %}
 <p>You are not logged in</p>
 <a href="{% url 'login' %}">Log In</a>

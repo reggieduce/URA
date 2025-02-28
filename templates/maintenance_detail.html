@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Apartment Details</title>
+      <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+         }
+         .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+         }
+         h1 {
+            color: #3a6073;
+            text-align: center;
+         }
+         .info {
+            margin-bottom: 15px;
+         }
+         .info label {
+            font-weight: bold;
+            color: #2b3a42;
+            display: block;
+            margin-bottom: 5px;
+         }
+         .info p {
+            font-size: 18px;
+            margin: 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            line-height: 1.6; /* Increases readability */
+            word-wrap: break-word; /* Ensures text wraps inside container */
+            overflow-wrap: break-word; /* Breaks long words to prevent overflow */
+            white-space: pre-line; /* Keeps line breaks in longer text */
+         }
+         .back-btn {
+            display: block;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #3a6073;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+            transition: background 0.3s;
+         }
+         .back-btn:hover {
+            background-color: #2b4a5e;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <h1>Maintenance Request Details</h1>
+
+         <div class="info">
+            <label>Street Address:</label>
+            <p>{{ maintenance.street_address }}</p>
+         </div>
+
+         <div class="info">
+            <label>Description:</label>
+            <p>{{ maintenance.description }}</p>
+         </div>
+
+         <div class="info">
+            <label>Date Reported:</label>
+            <p>{{ maintenance.date_reported }}</p>
+         </div>
+
+         <a href="{% url 'maintenance_list' %}" class="back-btn">Back to Maintenance List</a>
+      </div>
+   </body>
+</html>
